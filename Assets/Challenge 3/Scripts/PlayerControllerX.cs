@@ -57,6 +57,13 @@ public class PlayerControllerX : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        //Upon colliding with ground, bounce up with sound effect
+        if (other.gameObject.CompareTag("Ground") && !gameOver)
+        {
+            playerRb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+            playerAudio.PlayOneShot(bounceSound, effectVolume);
+        }
+
         // if player collides with bomb, explode and set gameOver to true
         if (other.gameObject.CompareTag("Bomb"))
         {
@@ -76,12 +83,7 @@ public class PlayerControllerX : MonoBehaviour
 
         }
 
-        //Upon colliding with ground, bounce up with sound effect
-        else if (other.gameObject.CompareTag("Ground"))
-        {
-            playerRb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
-            playerAudio.PlayOneShot(bounceSound, effectVolume);
-        }
+        
 
     }
 
